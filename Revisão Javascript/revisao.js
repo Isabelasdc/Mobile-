@@ -63,3 +63,77 @@ if(idade >= 18){
 //Operador ternário 
 const checkMaiordeIdade = idade >= 18 ? "Maior de idade" : "Menor de idade";
 console.log (checkMaiordeIdade)
+
+//Arrays 
+let frutas = ["Maça", "Banana", "Uva"]
+console.log(frutas[0])
+console.log(frutas[1])
+console.log(frutas[5])
+console.log(frutas.length)
+
+frutas.push("Laranja")
+
+frutas.forEach((fruta) => {
+    console.log(fruta)
+})
+
+frutas.pop()
+console.log(frutas)
+
+//Objetos 
+let pessoa = {
+    nome: "Isabela",
+    idade: 18,
+    altura: 160,
+    peso: 58
+}
+
+//Adicionar um novo atributo (propriedade) ao objeto 
+pessoa.email = "isa@g.com"
+console.log(pessoa)
+
+
+//remove um atributo 
+delete pessoa.email;
+console.log(pessoa)
+
+//Desestrutura o objeto pessoa
+let{altura, peso} = pessoa
+console.log(altura)
+console.log(peso)
+
+//Propagação de objeto 
+let endereco = {
+    cidade: "Ceilândia",
+    uf: "DF"
+}
+
+let pessoaCompleto = {...pessoa, ...endereco}
+console.log(pessoaCompleto)
+
+
+//Função
+function somar (numA, numB){
+    return numA + numB
+}
+
+console.log(somar(2,2))
+console.log(somar(10,2))
+console.log(somar(4,4))
+
+function saudacao(nome){
+    console.log("Olá ," + nome)
+}
+saudacao("Isabela")
+
+
+//Função anônima
+let subtrair = function(numA, numB){
+    return numA - numB
+}
+
+console.log(subtrair(4,2))
+
+//Arrow function
+let multiplicar = (numA, numB) => numA * numB
+console.log(multiplicar(2,10))

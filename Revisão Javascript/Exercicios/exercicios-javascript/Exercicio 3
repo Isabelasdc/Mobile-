@@ -1,0 +1,18 @@
+let idade1 = 70;
+let idade2 = 15;
+let idade3 = 25;
+
+function verificarIdade(idade) {
+    if (idade < 18) {
+        console.log("Menor de idade");
+    } else if (idade >= 18 && idade < 65) {
+        console.log("Maior de idade");
+    } else {
+        console.log("Idosa");
+    }
+}
+
+verificarIdade(idade1);  // Idade 70
+verificarIdade(idade2);  // Idade 15
+verificarIdade(idade3);  // Idade 25
+

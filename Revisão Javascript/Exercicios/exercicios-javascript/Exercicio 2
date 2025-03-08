@@ -1,0 +1,20 @@
+let soma = 15 + 5
+console.log(soma)
+
+let sub = 15 - 5
+console.log(sub)
+
+let multi = 15 * 5
+console.log(multi)
+
+let div = 15 / 5
+console.log(div )
+
+let numA = 3;
+let numB = 5;
+
+if ( numA > numB ){
+console.log("O primeiro número é maior que o segundo")
+
+} else
+console.log("erro")

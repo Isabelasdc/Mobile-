@@ -1,0 +1,15 @@
+let frutas = ["Maçã", "Banana", "Abacaxi", "Laranja"];
+
+let CaixaAlta = frutas.map(fruta => fruta.toUpperCase());
+
+console.log(CaixaAlta);     
+
+
+let frutasComA = frutas.filter(fruta => fruta[0] === 'A');
+
+console.log(frutasComA);
+
+
+let contagemLetras = frutas.map(fruta => fruta.length);
+
+console.log(contagemLetras); 

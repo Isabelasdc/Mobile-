@@ -1,0 +1,18 @@
+
+let pessoa = {
+    nome: "Isabela",
+    idade: 24,
+    cidade: "São Paulo"
+};
+
+pessoa.profissao = "Desenvolvedor"; 
+console.log("Objeto após adicionar 'profissao':", pessoa);
+
+delete pessoa.cidade; 
+console.log("Objeto após remover 'cidade':", pessoa);
+
+console.log("Propriedades do objeto:");
+
+for (let chave in pessoa) {
+    console.log(chave + ": " + pessoa[chave]);
+}

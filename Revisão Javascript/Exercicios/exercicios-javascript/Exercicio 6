@@ -1,0 +1,24 @@
+let numeros = [10, 20, 30, 40, 50];
+
+numeros.push(60);  // Vamos adicionar o número 60 ao final do array
+console.log("Array após adicionar 60:", numeros);
+
+
+numeros.shift()
+console.log("Primeiro número removido", numeros);
+
+let maiorNumero = numeros[0];  
+for (let i = 1; i < numeros.length; i++) {
+    if (numeros[i] > maiorNumero) {
+        maiorNumero = numeros[i];  
+    }
+}
+console.log("Maior número do array:", maiorNumero);
+
+let menorNumero = numeros[0]; 
+for (let i = 1; i < numeros.length; i++) {
+    if (numeros[i] < menorNumero) {
+        menorNumero = numeros[i];  
+    }
+}
+console.log("Menor número do array:", menorNumero);

@@ -1,0 +1,20 @@
+
+
+function calcularValores(numero) {
+    let dobro = numero * 2;
+    let triplo = numero * 3;
+    let quadrado = numero * numero;
+
+    return {
+        dobro: dobro,
+        triplo: triplo,
+        quadrado: quadrado
+    };
+}
+
+let resultado = calcularValores(5);
+
+// Exibindo os resultados
+console.log("Dobro:", resultado.dobro);    
+console.log("Triplo:", resultado.triplo); 
+console.log("Quadrado:", resultado.quadrado);  

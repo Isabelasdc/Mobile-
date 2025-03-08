@@ -1,0 +1,17 @@
+let livro = {
+    titulo: "O Senhor dos Anéis",
+    autor: "J.R. Tolkien",
+    ano: 1954
+};
+
+let { titulo, autor } = livro;
+
+console.log("Título:", titulo); 
+console.log("Autor:", autor);    
+
+function BuscarLivro(livro) {
+    let { titulo, autor } = livro; 
+    return `O título do livro é "${titulo}" e o autor é ${autor}.`;
+}
+
+console.log(BuscarLivro(livro));
