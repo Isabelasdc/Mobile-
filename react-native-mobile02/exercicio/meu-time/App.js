@@ -123,5 +123,8 @@ const styles = StyleSheet.create({
     backgroundColor: "red",
     alignItems: "center",
     justifyContent: "center",
+    borderWidth: 2, // Largura da borda
+    borderColor: "black",
   },
 });
+
