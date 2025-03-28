@@ -4,8 +4,8 @@ import { StyleSheet, Text, View, ScrollView } from 'react-native';
 import PrimeiroComponente from './componentes/PrimeiroComponente';
 import JavascriptComponente from './componentes/JavascriptComponente';
 import Perfil from './componentes/Perfil';
-import ListaComponentes from './componentes/ListaComponentes';
 import Pessoa from './componentes/Pessoa';
+import Atleta from './componentes/Atleta';
 
 export default function App() {
 
@@ -22,20 +22,15 @@ export default function App() {
       imagem: 'https://i.pinimg.com/474x/e2/07/cc/e207cc58c891798d5ff308b38ebc59cc.jpg'
     },
     {
-      nome: "Messi",
+      nome: "Lebron James",
       idade: 40,
-      imagem: 'https://i.pinimg.com/474x/ab/3b/73/ab3b732b4401d1820418db53ef468cd0.jpg'
+      imagem: 'https://i.pinimg.com/236x/6a/ae/f7/6aaef74808fdfbe4b25c41699fba6d81.jpg'
     },
     {
-      nome: "Messi",
+      nome: "Falcão",
       idade: 40,
-      imagem: 'https://i.pinimg.com/474x/ab/3b/73/ab3b732b4401d1820418db53ef468cd0.jpg'
+      imagem: 'https://i.pinimg.com/236x/2a/35/4f/2a354f4de93337261a885fee54e55118.jpg'
     },
-    {
-      nome: "Messi",
-      idade: 40,
-      imagem: 'https://i.pinimg.com/474x/ab/3b/73/ab3b732b4401d1820418db53ef468cd0.jpg'
-    }
   ]
 
 
@@ -48,16 +43,17 @@ export default function App() {
 
         {
           listaJogadores.map(
-            (jogador) => {
+            jogador => {
               return (
-                <Pessoa 
-                  dados={jogador}
+                <Atleta 
+                  nome={jogador.nome}
+                  idade={jogador.idade}
+                  imagem={jogador.imagem}
                 />
               )
             }
           )
         }
-
 
       </View>
 
@@ -66,12 +62,9 @@ export default function App() {
   );
 }
 
-
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: 'purple',
-    alignItems: 'center',
-    justifyContent: 'center',
+    backgroundColor: '#fff'
   },
 });
