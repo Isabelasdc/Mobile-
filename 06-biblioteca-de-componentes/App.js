@@ -4,7 +4,29 @@ import { PaperProvider, Card, Title, Paragraph, Divider, Button} from 'react-nat
 
 export default function App() {
 
-      const lista = ["uva", "maça", "banana", "laranja"]
+      const lista = [
+        {
+        titulo: "Card 1",
+        descricao: "Alguma coisa coisa",
+        imagem: "https://i.pinimg.com/564x/32/b6/16/32b6163218ac52ce74356102576481e3.jpg"
+        },
+        {
+          titulo: "Card 1",
+          descricao: "Alguma coisa coisa",
+          imagem: "https://i.pinimg.com/564x/32/b6/16/32b6163218ac52ce74356102576481e3.jpg"
+          },
+          {
+            titulo: "Card 1",
+            descricao: "Alguma coisa coisa",
+            imagem: "https://i.pinimg.com/564x/32/b6/16/32b6163218ac52ce74356102576481e3.jpg"
+          }
+          ,
+          {
+            titulo: "Card 1",
+            descricao: "Alguma coisa coisa",
+            imagem: "https://i.pinimg.com/564x/32/b6/16/32b6163218ac52ce74356102576481e3.jpg"
+          }
+      ]
   
   return (
     <PaperProvider>
@@ -13,21 +35,31 @@ export default function App() {
 
 
       <FlatList
+        horizontal
         data={lista}
-        renderItem={({item}) => <Text>{item}</Text>}
+        renderItem={({item}) => (
+          <Card>
+            <Card.Content>
+            <Title>{item.titulo}</Title>
+            <Paragraph>{item.descricao}</Paragraph>
+            </Card.Content>
+            <Card.Cover source={{uri: item.imagem}}/>
+          </Card>
+        )}
       />
 
       <FlatList
         data={lista}
         renderItem={({item}) => (
-          <View>
-            <Text>{item}</Text>
-            <Divider />
-          </View>
+          <Card>
+            <Card.Content>
+            <Title>{item.titulo}</Title>
+            <Paragraph>{item.descricao}</Paragraph>
+            </Card.Content>
+            <Card.Cover source={{uri: item.imagem}}/>
+          </Card>
         )}
       />
-      
-
 
     </View>
     </PaperProvider>
