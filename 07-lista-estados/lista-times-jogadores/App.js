@@ -62,47 +62,36 @@ export default function App() {
     },
     ];
 
-    return (
-      <PaperProvider>
-        <View style={styles.container}>
-          <Text variant="displaySmall" style={styles.title}>
-            Lista de Times
-          </Text>
-          
-          <FlatList
-            data={times}
-            renderItem={({ item }) => (
-              <Time
-                nome={item.nome}
-                anoFundacao={item.anoFundacao}
-                mascote={item.mascote}
-                imagem={item.imagem}
-                jogadores={item.jogadores}
-              />
-            )}
-            contentContainerStyle={styles.listContent}
-            keyExtractor={(item) => item.nome}
-          />
-        </View>
-        <StatusBar style="auto" />
-      </PaperProvider>
-    );
-  }
-  
-  const styles = StyleSheet.create({
-    container: {
-      flex: 1,
-      paddingTop: StatusBar.currentHeight || 24, // Adapta para a altura da StatusBar
-      paddingHorizontal: 16,
-      backgroundColor: '#fff',
-    },
-    title: {
-      marginVertical: 16,
-      textAlign: 'center',
-      fontWeight: 'bold',
-      fontSize: 22,
-    },
-    listContent: {
-      paddingBottom: 20,
-    },
-  });
+  return (
+    <PaperProvider>
+    <View style={styles.container}>
+      <StatusBar style="auto" />
+      <Text variant="displaySmall">Lista de Times</Text>
+      <FlatList
+
+          data={times}
+          renderItem={({ item }) => (
+            <Time
+              nome={item.nome}
+              anoFundacao={item.anoFundacao}
+              mascote={item.mascote}
+              imagem={item.imagem}
+              jogadores={item.jogadores}
+            />
+          )}
+        />
+
+
+    </View>
+    </PaperProvider>
+  );
+}
+
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    backgroundColor: '#fff',
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
+});
