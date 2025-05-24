@@ -1,7 +1,8 @@
-import { FlatList, StyleSheet, View } from "react-native";
-import React, { useEffect, useState } from "react";
-import { Card, Avatar, IconButton } from "react-native-paper";
-import axios from "axios";
+import axios from 'axios'
+import React, { useEffect, useState } from 'react'
+import { FlatList, StyleSheet, View } from 'react-native'
+import { Avatar, Card, IconButton, Text, ActivityIndicator, MD2Colors } from 'react-native-paper'
+
 
 export default function HomeScreen({navigation, route}) {
   const [usuarios, setUsuarios] = useState();
@@ -25,24 +26,31 @@ export default function HomeScreen({navigation, route}) {
 
   return (
     <View style={styles.container}>
-      <FlatList
-        style={{ marginBottom: 40 }}
+        <FlatList
+        style={{ marginBottom: 45 }}
         data={usuarios}
         renderItem={({ item }) => (
           <Card
-          style={{ margin: 8 }}
-          onPress={()=> navigation.navigate('UsuarioScreen', item.id)}
+            style={{ margin: 8 }}
+            onPress={() => navigation.navigate('UsuarioScreen', item.id)}
           >
-            <Card.Title  
-            title={item.firstName + " " + item.lastName}
-            subtitle={item.email}
-            left={(props) => <Avatar.Image  {...props} source={{ uri : item.image}}/>}
-            right={() => <IconButton icon='chevron-right' size={30} />}
+            <Card.Title
+              title={item.firstName + " " + item.lastName}
+              subtitle={item.email}
+              left={(props) => <Avatar.Image {...props} source={{ uri: item.image }} />}
+              right={() => <IconButton icon='chevron-right' size={30} />}
             />
-
           </Card>
         )}
+        ListEmptyComponent={() => (
+          <View style={styles.loadingContainer}>
+            <ActivityIndicator animating={true} color={MD2Colors.red800} size={100} />
+            <Text variant='titleLarge'>Carregando...</Text>
+          </View>
+        )}
+
       />
+
     </View>
   );
 }
