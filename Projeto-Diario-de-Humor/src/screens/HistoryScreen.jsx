@@ -11,7 +11,6 @@ import {
   Alert,
 } from 'react-native';
 import Header from '../components/Header';
-// 1. MUDANÇA AQUI: Importando a função correta para deletar
 import { getMoodRecords, deleteMoodRecord } from '../utils/storage';
 
 const moodEmojiMap = {
@@ -140,7 +139,6 @@ export default function HistoryScreen({ navigation }) {
   );
 }
 
-// Seus estilos (com pequenas melhorias)
 const styles = StyleSheet.create({
   container: { flex: 1, backgroundColor: '#f9f9f9' },
   listContent: { paddingHorizontal: 15, paddingTop: 10, paddingBottom: 30 },

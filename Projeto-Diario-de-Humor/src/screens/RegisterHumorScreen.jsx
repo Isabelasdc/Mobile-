@@ -153,7 +153,7 @@ const styles = StyleSheet.create({
   listContent: { padding: 15 },
   emptyText: { textAlign: 'center', color: '#888', marginTop: 50, fontSize: 16 },
   recordCard: { backgroundColor: '#fff', padding: 15, borderRadius: 10, elevation: 2, marginBottom: 15 },
-  cardHeader: { // NOVO: Estilo para o cabeçalho do card
+  cardHeader: { 
     flexDirection: 'row',
     justifyContent: 'space-between',
     borderBottomWidth: 1,
@@ -163,7 +163,7 @@ const styles = StyleSheet.create({
   },
   recordItem: { fontSize: 16, lineHeight: 24, color: '#333' },
   boldLabel: { fontWeight: 'bold' },
-  recordReflection: { // NOVO: Estilo para a reflexão
+  recordReflection: { 
     fontSize: 15,
     fontStyle: 'italic',
     color: '#2e7d32',
@@ -172,7 +172,7 @@ const styles = StyleSheet.create({
     padding: 10,
     borderRadius: 5,
   },
-  recordTimestamp: { // NOVO: Estilo para o horário
+  recordTimestamp: { 
     fontSize: 12,
     color: '#888',
     marginTop: 15,

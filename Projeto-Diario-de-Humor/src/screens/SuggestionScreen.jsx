@@ -23,7 +23,6 @@ import {
   deleteActivityRecord,
 } from "../utils/activityStorage";
 
-// A variável de "memória" para o ID do humor é uma abordagem válida para este caso de uso.
 let lastProcessedMoodId = null;
 
 export default function SuggestionsScreen({ navigation }) {
@@ -91,7 +90,6 @@ export default function SuggestionsScreen({ navigation }) {
     return unsubscribe;
   }, [navigation, fetchSuggestionData]);
 
-  // CORREÇÃO: Função para abrir o modal.
   // Ela define a atividade selecionada (para edição) e torna o modal visível.
   const openModal = (activity) => {
     setSelectedActivity(activity); // Se `activity` for null, é uma nova atividade.
@@ -211,7 +209,6 @@ export default function SuggestionsScreen({ navigation }) {
         )}
       </View>
 
-      {/* CORREÇÃO: Chama a função openModal corretamente */}
       <TouchableOpacity style={styles.fab} onPress={() => openModal(null)}>
         <Text style={styles.fabIcon}>+</Text>
       </TouchableOpacity>
@@ -227,7 +224,6 @@ export default function SuggestionsScreen({ navigation }) {
   );
 }
 
-// Seus estilos permanecem os mesmos
 const styles = StyleSheet.create({
   mainContainer: { flex: 1, backgroundColor: "#f9f9f9" },
   container: { flex: 1, paddingHorizontal: 20 },

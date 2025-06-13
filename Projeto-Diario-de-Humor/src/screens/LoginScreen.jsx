@@ -21,8 +21,8 @@ export default function LoginScreen({ navigation }) {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [loading, setLoading] = useState(false);
-  const [errorMessage, setErrorMessage] = useState(''); // Novo estado para a mensagem de erro
-
+  const [errorMessage, setErrorMessage] = useState(''); 
+  
   const handleLogin = async () => {
     // Limpa a mensagem de erro anterior
     setErrorMessage('');

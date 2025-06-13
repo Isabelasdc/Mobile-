@@ -1,7 +1,7 @@
 // src/services/aiService.js
 import axios from 'axios';
 
-const GEMINI_API_KEY = 'AIzaSyDIDxjL9agYji3v5i_ZcVYcHLcIOv2xLLI'; // Lembre-se de colocar sua chave aqui
+const GEMINI_API_KEY = 'AIzaSyDIDxjL9agYji3v5i_ZcVYcHLcIOv2xLLI';
 // URL atualizada para o modelo mais recente e eficiente
 const GEMINI_API_URL = 'https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash-latest:generateContent';
 
