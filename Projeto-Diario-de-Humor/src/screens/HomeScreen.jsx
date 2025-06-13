@@ -121,7 +121,7 @@ export default function HomeScreen() {
             <Text style={styles.actionText}>Ver Histórico Completo</Text>
           </TouchableOpacity>
           <TouchableOpacity style={styles.actionButton} onPress={() => handleNavigate('Sugestões')}>
-            <Text style={styles.actionText}>Sugestões para Você</Text>
+            <Text style={styles.actionText}>Sugestões  de atividade para Você</Text>
           </TouchableOpacity>
         </View>
       </ScrollView>
@@ -129,7 +129,6 @@ export default function HomeScreen() {
   );
 }
 
-// Seus estilos (permanecem os mesmos)
 const styles = StyleSheet.create({
     safeArea: { flex: 1, backgroundColor: '#f5f5f5' },
     titleContainer: { backgroundColor: '#6200ee', paddingVertical: 16, paddingHorizontal: 20, elevation: 4, shadowColor: '#000', shadowOffset: { width: 0, height: 2 }, shadowOpacity: 0.1, shadowRadius: 4 },

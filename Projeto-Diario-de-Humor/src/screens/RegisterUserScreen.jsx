@@ -1,18 +1,37 @@
 /// src/screens/RegisterUserScreen.jsx
 import React, { useState } from 'react';
-import MaskInput from 'react-native-mask-input';
+import MaskInput, { createNumberMask } from 'react-native-mask-input';
 import {
   View,
   Text,
   TextInput,
-  Button,
   StyleSheet,
   TouchableOpacity,
   ImageBackground,
   ActivityIndicator,
+  Alert, // Usar Alert para uma melhor experiência
 } from 'react-native';
 import Header from '../components/Header';
 import { saveUser } from '../utils/auth';
+
+// Máscara para e-mail: permite caracteres comuns em e-mails.
+// É uma máscara flexível que não impõe uma estrutura rígida,
+// mas guia o usuário a inserir os caracteres corretos.
+const emailMask = (text = '') => {
+  const mask = [];
+  // Permite até 64 caracteres para a parte local (antes do @)
+  for (let i = 0; i < 64; i++) {
+    mask.push(/[a-zA-Z0-9_.-]/);
+  }
+  // Permite o @
+  mask.push('@');
+  // Permite até 255 caracteres para o domínio
+  for (let i = 0; i < 255; i++) {
+    mask.push(/[a-zA-Z0-9.-]/);
+  }
+  return mask;
+};
+
 
 export default function RegisterUserScreen({ navigation }) {
   const [name, setName] = useState('');
@@ -24,24 +43,31 @@ export default function RegisterUserScreen({ navigation }) {
   const [loading, setLoading] = useState(false);
   const [cpf, setCpf] = useState('');
 
-
-
   const handleRegister = async () => {
+    // 1. Validação de campos
     if (!name || !age || !birthDate || !email || !password || !cpf) {
-      alert('Preencha todos os campos obrigatórios.');
+      Alert.alert('Erro', 'Preencha todos os campos obrigatórios.');
       return;
     }
 
+    // 2. Validação de CPF
     const cpfOnlyNumbers = cpf.replace(/\D/g, '');
-
     if (cpfOnlyNumbers.length !== 11) {
-      alert('Digite um CPF válido com 11 dígitos.');
+      Alert.alert('Erro', 'Digite um CPF válido com 11 dígitos.');
       return;
+    }
+    
+    // 3. Validação de E-mail com Regex (mais seguro que a máscara)
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    if (!emailRegex.test(email)) {
+        Alert.alert('Erro', 'Por favor, insira um e-mail válido.');
+        return;
     }
 
 
+    // 4. Validação dos termos
     if (!termsAccepted) {
-      alert('Você deve aceitar os termos de uso.');
+      Alert.alert('Atenção', 'Você deve aceitar os termos e condições para continuar.');
       return;
     }
 
@@ -51,16 +77,23 @@ export default function RegisterUserScreen({ navigation }) {
       name,
       age,
       birthDate,
-      cpf: cpf.replace(/\D/g, ''), // Salva apenas números
+      cpf: cpfOnlyNumbers, // Salva apenas números
       email,
       password,
       authenticated: true,
     };
 
-    await saveUser(userData);
-
-    // Vai pro Login após cadastro
-    navigation.navigate('Login');
+    try {
+        await saveUser(userData);
+        Alert.alert('Sucesso!', 'Seu cadastro foi realizado com sucesso.');
+        // Vai pro Login após cadastro
+        navigation.navigate('Login');
+    } catch (error) {
+        console.error("Erro ao salvar usuário:", error);
+        Alert.alert('Erro', 'Não foi possível completar o seu cadastro. Tente novamente.');
+    } finally {
+        setLoading(false);
+    }
   };
 
   return (
@@ -77,6 +110,7 @@ export default function RegisterUserScreen({ navigation }) {
         <View style={styles.overlay}>
           <Text style={styles.subtitle}>Crie sua conta</Text>
 
+          {/* Nome completo */}
           <TextInput
             placeholder="Nome completo"
             value={name}
@@ -86,23 +120,23 @@ export default function RegisterUserScreen({ navigation }) {
             placeholderTextColor="#999"
           />
 
+          {/* Idade */}
           <TextInput
             placeholder="Idade"
             value={age}
             onChangeText={(text) => {
-              // Remove qualquer coisa que não seja número
               const onlyNumbers = text.replace(/[^0-9]/g, '');
-              // Limita a 3 dígitos
               if (onlyNumbers.length <= 3) {
                 setAge(onlyNumbers);
               }
             }}
             style={styles.input}
             keyboardType="numeric"
-            maxLength={3} // Limita visualmente o input
+            maxLength={3}
             placeholderTextColor="#999"
           />
 
+          {/* Data de Nascimento */}
           <MaskInput
             mask={[/\d/, /\d/, '/', /\d/, /\d/, '/', /\d/, /\d/, /\d/, /\d/]}
             placeholder="Data de nascimento (DD/MM/AAAA)"
@@ -113,14 +147,12 @@ export default function RegisterUserScreen({ navigation }) {
             placeholderTextColor="#999"
           />
 
+          {/* CPF */}
           <MaskInput
             mask={[
-              /\d/, /\d/, /\d/,
-              '.',
-              /\d/, /\d/, /\d/,
-              '.',
-              /\d/, /\d/, /\d/,
-              '-',
+              /\d/, /\d/, /\d/, '.',
+              /\d/, /\d/, /\d/, '.',
+              /\d/, /\d/, /\d/, '-',
               /\d/, /\d/
             ]}
             placeholder="CPF"
@@ -131,16 +163,19 @@ export default function RegisterUserScreen({ navigation }) {
             placeholderTextColor="#999"
           />
 
-          <TextInput
+          {/* E-mail com Máscara */}
+          <MaskInput
             placeholder="Email"
             value={email}
             onChangeText={setEmail}
+            mask={emailMask}
             style={styles.input}
             keyboardType="email-address"
             autoCapitalize="none"
             placeholderTextColor="#999"
           />
 
+          {/* Senha */}
           <TextInput
             placeholder="Senha"
             value={password}
@@ -151,6 +186,7 @@ export default function RegisterUserScreen({ navigation }) {
             placeholderTextColor="#999"
           />
 
+          {/* Termos e Condições */}
           <View style={styles.checkboxContainer}>
             <TouchableOpacity
               style={[
@@ -164,7 +200,7 @@ export default function RegisterUserScreen({ navigation }) {
             <Text style={styles.termsText}>Aceito os termos e condições</Text>
           </View>
 
-          {/* Botão Registrar com loading */}
+          {/* Botão Registrar */}
           <TouchableOpacity
             style={styles.registerButton}
             onPress={handleRegister}
@@ -172,7 +208,7 @@ export default function RegisterUserScreen({ navigation }) {
           >
             {loading ? (
               <>
-                <ActivityIndicator size="small" color="#fff" />
+                <ActivityIndicator size="small" color="#fff" style={{marginRight: 8}} />
                 <Text style={styles.registerButtonText}>Registrando...</Text>
               </>
             ) : (
@@ -180,6 +216,7 @@ export default function RegisterUserScreen({ navigation }) {
             )}
           </TouchableOpacity>
 
+          {/* Link para Login */}
           <TouchableOpacity onPress={() => navigation.goBack()}>
             <Text style={styles.link}>Já tem conta? Faça login</Text>
           </TouchableOpacity>
@@ -222,10 +259,11 @@ const styles = StyleSheet.create({
     borderColor: '#ccc',
     borderWidth: 1,
     borderRadius: 8,
-    paddingHorizontal: 10,
+    paddingHorizontal: 15,
     marginBottom: 15,
     backgroundColor: '#fff',
     fontSize: 16,
+    color: '#333'
   },
   checkboxContainer: {
     flexDirection: 'row',
@@ -244,10 +282,12 @@ const styles = StyleSheet.create({
   },
   checkboxChecked: {
     backgroundColor: '#6200ee',
+    borderColor: '#6200ee',
   },
   checkmark: {
     color: '#fff',
-    fontSize: 18,
+    fontSize: 16,
+    fontWeight: 'bold',
   },
   registerButton: {
     backgroundColor: '#28a745',
@@ -257,10 +297,15 @@ const styles = StyleSheet.create({
     borderRadius: 8,
     marginBottom: 15,
     flexDirection: 'row',
+    shadowColor: '#000',
+    shadowOffset: { width: 0, height: 1 },
+    shadowOpacity: 0.2,
+    shadowRadius: 2,
+    elevation: 2,
   },
   registerButtonText: {
     color: '#fff',
-    fontSize: 16,
+    fontSize: 18,
     fontWeight: 'bold',
   },
   link: {
@@ -268,6 +313,7 @@ const styles = StyleSheet.create({
     textAlign: 'center',
     color: '#6200ee',
     fontSize: 14,
+    textDecorationLine: 'underline',
   },
   termsText: {
     fontSize: 14,
